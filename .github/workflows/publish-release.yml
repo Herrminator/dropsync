@@ -1,0 +1,51 @@
+name: Release Publish
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get version
+        id: version
+        run: |
+          sed -nr 's/^\s*__version__\s*=\s*"(.*?)".*/version=\1/p' "dropsync/__init__.py" >> $GITHUB_OUTPUT
+          if echo "${{ github.ref }}" | grep -iP 'test|alpha|beta'; then
+              echo "prerelease=true" >> $GITHUB_OUTPUT
+          else
+              echo "prerelease=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Set up Python ${{ vars.DROPSYNC_PYTHON_VERSION }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ vars.DROPSYNC_PYTHON_VERSION }}
+
+      - name: Create Python wheel
+        # https://packaging.python.org/en/latest/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/
+        run: |
+          python -m pip install --user --break-system-packages --no-cache build
+          python -m build
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: false
+          prerelease: ${{ steps.version.outputs.prerelease }}
+          name: ${{ steps.version.outputs.version }}
+          tag_name: ${{ github.ref }}
+          body: dropsync ${{ steps.version.outputs.version }}
+          body_path: ./CHANGELOG.md
+          generate_release_notes: true
+          files: |
+            ./dropsync-${{ steps.version.outputs.version }}-py3-none-any.whl
+            ./dropsync-${{ steps.version.outputs.version }}.tar.gz
