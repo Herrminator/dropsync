@@ -114,6 +114,16 @@
             "justMyCode": false
         },
         {
+            "name": "unittest (runner)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "dropsync.test",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": false
+        },
+        {
             // https://stackoverflow.com/a/78284991/10545609
             "name": "Debug Tests",
             "type": "debugpy",

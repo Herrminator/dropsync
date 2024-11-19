@@ -16,7 +16,7 @@ authors= [
 
 [project.scripts]
 dbxmirror = "dropsync.dbxmirror:main"
-dropsync_tests = "unittest:main"
+dropsync_tests = "dropsync.test:Run"
 
 [project.urls]
 Repository = "https://github.com/Herrminator/dropsync.git"

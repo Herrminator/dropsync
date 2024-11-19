@@ -1,4 +1,4 @@
-import os, unittest, shutil
+import sys, os, unittest, shutil
 from unittest.mock import patch, MagicMock
 from pathlib import Path
 from .mockbox import Mockbox
@@ -59,3 +59,13 @@ class TestBase(unittest.TestCase):
         self.assertEqual(len(target), meta, "Number of meta-db entries don't match")
         self.assertEqual(len(self.dbx.files), len(self.dbx.downloaded), "Download call mismatch")
         self.assertEqual(len(self.dbx.folders), self.dbx.makedirs_mock.call_count, "Directory create call mismatch")
+
+class Run(unittest.TestProgram): # pragma: nocover
+    from .test_00_smoketest import SmokeTest
+    from .test_dbxmirror import TestDbxmirror
+    from .test_online import TestOnline
+    from .test_errors import TestErrors
+    
+    def __init__(self, *args, **kwargs):
+        kwargs.pop("module", None)
+        super().__init__(module=self, *args, **kwargs)

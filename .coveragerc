@@ -4,6 +4,7 @@ omit =
     */data/*
     dropsync/__init__.py
     dropsync/__main__.py
+    dropsync/test/__main__.py
 branch = true
 data_file=tmp/.coverage.db3
 plugins =
