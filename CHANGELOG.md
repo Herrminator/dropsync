@@ -2,6 +2,7 @@
 
 ## 0.2.1 (2024-11)
 - Make test module runnable and install test runner script (see [README](./README.md#test-scripts)).
+- Option to show version information
 
 ## 0.2.0 (2024-11-15)
 - Handle case (in-) sensitivity properly

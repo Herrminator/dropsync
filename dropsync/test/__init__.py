@@ -21,7 +21,7 @@ class TestBase(unittest.TestCase):
     def setUpPatches(self, online=False): # we're not using the decorators, so we can use the same mock for multiple methods
         from .. import dbxmirror
         self.dbx = Mockbox(self, target=TEST_TARGET)
-        if not online:
+        if not online: # pragma: nobranch
             p = patch.object(dbxmirror.dropbox, "Dropbox", new=self.dbx); p.start()
         p = patch.object(dbxmirror.os, "makedirs", new=self.dbx.makedirs_mock); p.start()
         self.addCleanup(patch.stopall)
@@ -45,7 +45,7 @@ class TestBase(unittest.TestCase):
 
     def listTarget(self, include_hidden: bool = False):
         result = list(TEST_TARGET.rglob("*"))
-        if not include_hidden:
+        if not include_hidden: # pragma: nobranch
             def hidden(p):
                 b = os.path.basename(p)
                 return b.startswith(".~")

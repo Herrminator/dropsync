@@ -285,29 +285,39 @@ def utcnow():
   now = datetime.datetime.now(tz=datetime.timezone.utc).replace(tzinfo=None)
   return now
 
+def print_version():
+    from .        import __version__
+    from requests import __version__ as rq_version
+    print(f"{sys.argv[0]} - dropsync {__version__}, using dropbox API {dropbox.__version__} with requests {rq_version}, Python {sys.version}")
+
 def main(argv=sys.argv[1:]):
   ap = argparse.ArgumentParser()
   ap.add_argument(      "local",       default=None)
   ap.add_argument(      "remote",      default="",          nargs="?")
   ap.add_argument("-d", "--direction", default="download",  choices=["download", "upload", "both"])
-  ap.add_argument("-x", "--exclude",   default=[],          action="append", help="RE matching remote path")
-  ap.add_argument("-i", "--include",   default=[],          action="append", help="RE overriding exclude")
-  ap.add_argument("-k", "--keep",      default=[],          action="append", help="RE prevent delete")
+  ap.add_argument("-x", "--exclude",   default=[],          action="append", help="RegEx matching remote path")
+  ap.add_argument("-i", "--include",   default=[],          action="append", help="RegEx overriding exclude")
+  ap.add_argument("-k", "--keep",      default=[],          action="append", help="RegEx preventing delete")
   ap.add_argument("-y", "--trsymlink", default=[],          action="append", help="Translate path for symlinks: '<org>;<local>'")
-  ap.add_argument("-n", "--no-delete", default=False,       action="store_true")
+  ap.add_argument("-n", "--no-delete", default=False,       action="store_true", help="Only transfer, don't delete files")
   ap.add_argument("-l", "--login",     default=False,       action="store_true", help="Force new login")
   ap.add_argument("-t", "--token",     default=None,        help=f"Use existing token. E.g. from https://www.dropbox.com/developers/apps/info/{APPKEY}#settings")
-  ap.add_argument("-T", "--timeout",   default=120.0,       type=float)
-  ap.add_argument("-m", "--metadb",    default=".~dropsync.py.db3")
+  ap.add_argument("-T", "--timeout",   default=120.0,       type=float, help="Timeout for remote dropbox operations")
+  ap.add_argument("-m", "--metadb",    default=".~dropsync.py.db3", help="Metadata file. Always located in local folder")
   ap.add_argument("-R", "--resetmeta", default=False,       action="store_true")
   ap.add_argument("-Y", "--ignsymlink",default=False,       action="store_true", help="Ignore symlink errors")
-  ap.add_argument("-v", "--verbose",   default=0,           action="count")
-  ap.add_argument("-D", "--dir-only",  default=False,       action="store_true")
-  ap.add_argument(      "--dry-run",   default=False,       action="store_true")
+  ap.add_argument("-D", "--dir-only",  default=False,       action="store_true", help="Only synchronize directory structure")
+  ap.add_argument("-v", "--verbose",   default=0,           action="count", help="Specify multiple times to increase verbosity")
+  ap.add_argument(      "--dry-run",   default=False,       action="store_true", help="Do not transfer or delete any files")
+  ap.add_argument("-V", "--version",   default=False,       action="store_true", help="Print version and exit")
   ap.add_argument(      "--synctime",  default=utcnow(),    type=lambda dt:datetime.datetime.strptime(dt,"%Y%m%d%H%M%S"), help=argparse.SUPPRESS)
   args = ap.parse_args(argv)
 
   assert args.direction == "download", "Upload is not implemented yet"
+
+  if args.version:
+    print_version()
+    return 0
 
   if args.verbose > 2:
     import logging # activates dropbox library logging
