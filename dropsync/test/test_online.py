@@ -6,7 +6,7 @@ REMOTE_FOLDER    = os.environ.get("DBXMIRROR_TEST_FOLDER", "/tmp/test/sync")
 REMOTE_TOKEN     = os.environ.get("DBXMIRROR_DEVELOPER_TOKEN")
 ONLINE_TEST_ARGS = [ str(TEST_TARGET), REMOTE_FOLDER, f"--token={REMOTE_TOKEN}", f"--metadb={TEST_DBNAME}", "-vvv" ]
 
-@unittest.skipIf(REMOTE_TOKEN is None, "No Dropbox developer token available")
+@unittest.skipIf(REMOTE_TOKEN is None, f"No Dropbox developer token available in DBXMIRROR_DEVELOPER_TOKEN")
 class TestOnline(TestBase): # pragma: notoken-nocover
     def test_online(self):
         rc = dbxmirror.main(ONLINE_TEST_ARGS)

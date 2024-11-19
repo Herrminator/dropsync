@@ -1,5 +1,8 @@
 # Change Log
 
+## 0.2.1 (2024-11)
+- Make test module runnable and install test runner script (see [README](./README.md#test-scripts)).
+
 ## 0.2.0 (2024-11-15)
 - Handle case (in-) sensitivity properly
 - Use OAuth refresh tokens
