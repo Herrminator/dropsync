@@ -1,0 +1,127 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "windows": {
+                "env": {
+                    "BROWSER": "${env:USERPROFILE}\\Portable\\PortableApps\\GoogleChromePortable\\GoogleChromePortable.exe"
+                },
+            },
+            "justMyCode": false,
+        },
+        {
+            "name": "dbxmirror (test)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "dropsync",
+            "args": [
+                "${workspaceFolder}/tmp/test/sync",
+                "/tmp/test/sync",
+                "-x", "foo/not",
+                "-x", ".*/not\\.txt",
+                "-x", "/Photos",
+                "-x", ".*/\\.?~.*",
+                "-k", ".*/__pycache__(/.*|$)",
+                "-vvv",
+                // "--metadb=.~dropsync.py.db3?mode=ro&cache=shared"
+                // "--login",
+                // REMOVEME "--token=sl.u.AFW..." // developer token from https://www.dropbox.com/developers/apps/info/{APPKEY}#settings
+            ],
+            "windows": {
+                "env": {
+                    "BROWSER": "${env:USERPROFILE}\\Portable\\PortableApps\\GoogleChromePortable\\GoogleChromePortable.exe"
+                },
+            },
+            "console": "integratedTerminal",
+            "justMyCode": false,
+        },
+        {
+            "name": "dbxmirror (production)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "dropsync",
+            "args": [
+                "${env:USERPROFILE}\\Dropbox.ng",
+                "-x", "/Public/.*\\.avi",
+                "-x", "/Photos",
+                "-x", "/Backup/Work/samos/trac_.*",
+                "-x", ".*/__pycache__(/.*|$)",
+                "-x", ".*\\.py[co]",
+                "-x", ".*/\\.?~.*",
+                "-y", "C:\\Users\\JOHLER\\Dropbox;${env:USERPROFILE}\\Dropbox",
+                "-i", "/Public/IMG.*\\.avi", "-k", ".*/__pycache__(/.*|$)",
+                "-Y",
+                "--timeout=240",
+                "-vv", // "--dry-run", "--login"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false,
+        },
+        {
+            "name": "dbxmirror (partial)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "dropsync",
+            "args": [
+                "${workspaceFolder}/tmp/test/partial",
+                "-x", "/.*",
+                "-y", "C:\\Users\\JOHLER\\Dropbox;${env:USERPROFILE}\\Dropbox",
+                "-i", "/[Pp]hone(/[Dd]ocs(/[Gg][Pp][Ss].*)?)?$",
+                "-Y",
+                "--timeout=240",
+                "-vvvv", // "--dry-run", "--login"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false,
+        },
+        {
+            "name": "unittest (all)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "unittest",
+            "args": [
+                "discover", "-b", "-v",
+                // see settings.json for unittests
+                "-t", ".",
+                "-s", ".",
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": false
+        },
+        {
+            "name": "unittest (single)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "unittest",
+            "args": [
+                "discover", "-b", "-v",
+                // see settings.json for unittests
+                "-t", ".",
+                "-s", ".",
+                "-k", "test_removal_and_delete"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": false
+        },
+        {
+            // https://stackoverflow.com/a/78284991/10545609
+            "name": "Debug Tests",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "purpose": ["debug-test"],
+            "console": "integratedTerminal",
+            "justMyCode": false
+        },
+    ]
+}

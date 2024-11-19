@@ -1,0 +1,54 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+		{
+			"type": "shell",
+			"label": "coverage: run",
+			"command": "${workspaceFolder}/bin/python",
+			"windows": {
+				"command": "${workspaceFolder}/Scripts/python",
+			},
+			"args": [ "-m", "coverage", "run", "--branch",  "-m", "unittest",
+			          "discover", "-b", "-v", "-s", ".", "-t", "." ],
+			"icon": { "id": "debug-coverage", "color": "terminal.ansiYellow"},
+			"hide": false,
+			"problemMatcher": [],
+			"presentation": {
+				"showReuseMessage": false,
+    		}
+		},
+		{
+			"type": "shell",
+			"label": "coverage: coverage.xml",
+			"command": "${workspaceFolder}/bin/python",
+			"windows": { "command": "${workspaceFolder}/Scripts/python"},
+			"args": [ "-m", "coverage", "xml", ],
+            "dependsOn": [ "generate coverage db" ],
+			"icon": { "id": "debug-coverage", "color": "terminal.ansiYellow"},
+			"problemMatcher": [],
+			"presentation": {
+				"showReuseMessage": false,
+    		}
+		},
+		{
+			"type": "shell",
+			"label": "coverage: coverage.html",
+			"command": "${workspaceFolder}/bin/python",
+			"windows": { "command": "${workspaceFolder}/Scripts/python" },
+			"args": [ "-m", "coverage", "html" ],
+			"icon": { "id": "debug-coverage", "color": "terminal.ansiYellow" },
+			"problemMatcher": [],
+			"presentation": { "showReuseMessage": false },
+		},
+		{
+			"label": "coverage: create reports",
+			"dependsOn": [ "coverage: run", "coverage: coverage.xml", "coverage: coverage.html" ],
+			"dependsOrder": "sequence",
+			"icon": { "id": "debug-coverage", "color": "terminal.ansiGreen" },
+			"problemMatcher": [],
+			"presentation": { "showReuseMessage": false },
+		}
+    ]
+}

@@ -1,0 +1,27 @@
+[run]
+omit =
+    */Lib/*
+    */data/*
+    dropsync/__init__.py
+    dropsync/__main__.py
+branch = true
+data_file=tmp/.coverage.db3
+plugins =
+    coverage_conditional_plugin
+
+[coverage:coverage_conditional_plugin]
+rules =
+    "platform_system == 'Windows'": windows-nocover
+    "platform_system == 'Linux'":   linux-nocover
+    "'DBXMIRROR_DEVELOPER_TOKEN' not in os_environ": notoken-nocover
+
+[report]
+exclude_also =
+    @abstractmethod
+    @abc.abstractmethod
+
+[xml]
+output=tmp/coverage.xml
+
+[html]
+directory=tmp/coverage.html

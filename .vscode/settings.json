@@ -1,0 +1,11 @@
+{
+    "python.testing.unittestArgs": [
+        "--quiet",
+        "-t", ".",
+        "-s", ".",
+    ],
+    "python.testing.pytestEnabled": false,
+    "python.testing.unittestEnabled": true,
+    "python.experiments.optInto": ["pythonTestAdapter"], // coverage
+    "python.envFile": "${workspaceFolder}/.env.python"
+}

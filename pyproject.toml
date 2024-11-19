@@ -1,0 +1,32 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dropsync" # hatchling uses this to discover the top level dir
+dynamic = ["version"]
+dependencies = [
+    "dropbox"
+]
+requires-python=">=3.8"
+readme="README.md"
+authors= [
+    { name="Thomas Johler", email="python@johler.de" }
+]
+
+[project.scripts]
+dbxmirror = "dropsync.dbxmirror:main"
+
+[project.urls]
+Repository = "https://github.com/Herrminator/dropsync.git"
+
+[tool.setuptools.dynamic]
+version = {attr = "dropsync.__version__"}
+
+[tool.hatch.version]
+path = "dropsync/__init__.py"
+
+[tool.hatch.build]
+# include = [
+#     "kodi_test_util/*.py",
+# ]

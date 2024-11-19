@@ -1,0 +1,47 @@
+name: Unit Tests
+
+on:
+  push:
+    branches:
+      - "main"
+      - "actions"
+
+  workflow_dispatch:
+
+# see https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+env: # for scripts
+  python_ver: "${{ vars.DROPSYNC_PYTHON_VERSION || "3.12" }}"
+  # temporarily disabled
+  # DBXMIRROR_DEVELOPER_TOKEN: "sl.AbC..."
+
+jobs:
+  tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        # 3.9 for Debian bullseye, 3.14.x as future version
+        python-version: [ "3.9", "${{ vars.DROPSYNC_PYTHON_VERSION || "3.12" }}", "3.14.0-alpha.1"]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Say Hello
+        run: |
+          env | sort
+          # ls -RalF
+          ls -alF
+          pwd
+          echo "Hello Python ${python_ver}!"
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+      - name: Install dependencies
+        run: python -m pip install --user --break-system-packages --no-cache -r dropsync/requirements.txt
+      - name: Run unit tests
+        run: python -m unittest discover -b -v -t
