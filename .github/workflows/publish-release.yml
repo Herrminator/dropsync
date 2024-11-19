@@ -35,7 +35,6 @@ jobs:
         run: |
           python -m pip install --user --break-system-packages --no-cache build
           python -m build
-          ls -RalF
 
       - name: Create Release
         # don't forget to set the permissions for action here:
@@ -50,5 +49,5 @@ jobs:
           body_path: ./CHANGELOG.md
           generate_release_notes: true
           files: |
-            **/dropsync-*.whl
-            **/dropsync-*.tar.gz
+            ./dist/dropsync-*.whl
+            ./dist/dropsync-*.tar.gz
