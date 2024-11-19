@@ -11,7 +11,7 @@ on:
 # see https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
 env: # for scripts
-  python_ver: "${{ vars.DROPSYNC_PYTHON_VERSION || "3.12" }}"
+  python_ver: "${{ vars.DROPSYNC_PYTHON_VERSION || '3.12' }}"
   # temporarily disabled
   # DBXMIRROR_DEVELOPER_TOKEN: "sl.AbC..."
 
@@ -21,7 +21,7 @@ jobs:
       fail-fast: false
       matrix:
         # 3.9 for Debian bullseye, 3.14.x as future version
-        python-version: [ "3.9", "${{ vars.DROPSYNC_PYTHON_VERSION || "3.12" }}", "3.14.0-alpha.1"]
+        python-version: [ "3.9", "${{ vars.DROPSYNC_PYTHON_VERSION || '3.12' }}", "3.14.0-alpha.1"]
 
     runs-on: ubuntu-latest
 
