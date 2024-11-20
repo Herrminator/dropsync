@@ -301,7 +301,7 @@ def main(argv=sys.argv[1:]):
   ap.add_argument("-y", "--trsymlink", default=[],          action="append", help="Translate path for symlinks: '<org>;<local>'")
   ap.add_argument("-n", "--no-delete", default=False,       action="store_true", help="Only transfer, don't delete files")
   ap.add_argument("-l", "--login",     default=False,       action="store_true", help="Force new login")
-  ap.add_argument("-t", "--token",     default=None,        help=f"Use existing token. E.g. from https://www.dropbox.com/developers/apps/info/{APPKEY}#settings")
+  ap.add_argument("-t", "--token",     default=None,        help=f"Use an existing token. E.g. from https://www.dropbox.com/developers/apps/info/{APPKEY}#settings")
   ap.add_argument("-T", "--timeout",   default=120.0,       type=float, help="Timeout for remote dropbox operations")
   ap.add_argument("-m", "--metadb",    default=".~dropsync.py.db3", help="Metadata file. Always located in local folder")
   ap.add_argument("-R", "--resetmeta", default=False,       action="store_true")
