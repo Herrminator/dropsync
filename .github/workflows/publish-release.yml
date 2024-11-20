@@ -43,7 +43,7 @@ jobs:
         with:
           draft: false
           prerelease: ${{ steps.version.outputs.prerelease }}
-          name: ${{ steps.version.outputs.version }}
+          name: ${{ github.ref }}
           tag_name: ${{ github.ref }}
           body: dropsync ${{ steps.version.outputs.version }}
           body_path: ./CHANGELOG.md
