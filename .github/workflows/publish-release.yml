@@ -19,6 +19,7 @@ jobs:
         id: version
         run: |
           sed -nr 's/^\s*__version__\s*=\s*"(.*?)".*/version=\1/p' "dropsync/__init__.py" >> $GITHUB_OUTPUT
+          echo "ref_name=$(basename ${{ github.ref }})" >> $GITHUB_OUTPUT
           if echo "${{ github.ref }}" | grep -iP 'test|alpha|beta'; then
               echo "prerelease=true" >> $GITHUB_OUTPUT
           else
@@ -43,7 +44,7 @@ jobs:
         with:
           draft: false
           prerelease: ${{ steps.version.outputs.prerelease }}
-          name: ${{ github.ref }}
+          name: ${{ steps.version.outputs.ref_name }}
           tag_name: ${{ github.ref }}
           body: dropsync ${{ steps.version.outputs.version }}
           body_path: ./CHANGELOG.md
