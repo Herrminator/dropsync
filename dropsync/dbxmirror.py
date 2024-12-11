@@ -200,7 +200,7 @@ def sync(args, dbx, path=None, metadb=None):
           log(args, 1, "Removing {0}".format(loc.path))
           if loc.is_dir():
             lmeta = metadb.create_meta(name=loc.name, path_lower=key, type=dbxmeta.LocalFolderMeta)
-            shutil.rmtree(loc.path, onexc=remove_readonly)
+            shutil.rmtree(loc.path, onerror=remove_readonly) # type: ignore[reportDeprecated] # TODO: As long as it is running on Python < 3.12 :(
           else:
             lmeta = metadb.create_meta(name=loc.name, path_lower=key)
             remove_readonly(os.remove, loc.path, None)
