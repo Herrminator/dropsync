@@ -7,5 +7,6 @@
     "python.testing.pytestEnabled": false,
     "python.testing.unittestEnabled": true,
     "python.experiments.optInto": ["pythonTestAdapter"], // coverage
-    "python.envFile": "${workspaceFolder}/.env.python"
+    "python.envFile": "${workspaceFolder}/.env.python",
+    "python.analysis.diagnosticSeverityOverrides": { "reportDeprecated": "warning" }
 }

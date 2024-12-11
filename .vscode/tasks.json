@@ -2,6 +2,7 @@
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
     "version": "2.0.0",
+	// "options": { "env": {"DBXMIRROR_DEVELOPER_TOKEN": "sl.CC..."}}, // sl.XX... means short lived: 4 hours!
     "tasks": [
 		{
 			"type": "shell",
@@ -43,8 +44,22 @@
 			"presentation": { "showReuseMessage": false },
 		},
 		{
+            "type": "shell",
+            "label": "coverage: report",
+            "command": "python",
+            "windows": { "command": "${workspaceFolder}/Scripts/python"},
+            "args": [ "-m", "coverage", "report", "--sort=-cover" ],
+            "dependsOn": [ "coverage: run" ],
+            "icon": { "id": "debug-coverage", "color": "terminal.ansiYellow"},
+            "problemMatcher": [],
+            "presentation": {
+                "showReuseMessage": false,
+            }
+        },
+ 		{
 			"label": "coverage: create reports",
-			"dependsOn": [ "coverage: run", "coverage: coverage.xml", "coverage: coverage.html" ],
+			"dependsOn": [ "coverage: run", "coverage: coverage.xml",
+						   "coverage: coverage.html", "coverage: report" ],
 			"dependsOrder": "sequence",
 			"icon": { "id": "debug-coverage", "color": "terminal.ansiGreen" },
 			"problemMatcher": [],

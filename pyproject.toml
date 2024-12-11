@@ -4,6 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "dropsync" # hatchling uses this to discover the top level dir
+description = "A simple Dropbox CLI-client written in Python, using the official Dropbox-API"
 dynamic = ["version"]
 dependencies = [
     "dropbox"

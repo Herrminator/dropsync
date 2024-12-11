@@ -1,8 +1,9 @@
 # Change Log
 
-## 0.2.1 (2024-11)
+## 0.2.1 (2024-12 beta)
 - Make test module runnable and install test runner script (see [README](./README.md#test-scripts)).
 - Option to show version information
+- Fix linter errors
 
 ## 0.2.0 (2024-11-15)
 - Handle case (in-) sensitivity properly
