@@ -17,5 +17,5 @@ class TestOnline(TestBase): # pragma: notoken-nocover
         self.assertGreaterEqual(len(target), 2, "There should be at least two files/directories in the test folder")
         self.assertEqual(len(target), meta, "Number of meta-db entries don't match")
 
-    def setUpPatches(self):
+    def setUpPatches(self, online=True):
         return super().setUpPatches(online=True)

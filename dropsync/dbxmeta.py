@@ -1,7 +1,8 @@
 import os, datetime, pathlib, urllib.parse
-try:    from pysqlite2 import dbapi2 as sql #@UnresolvedImport,@UnusedImport
+try:    from pysqlite2 import dbapi2 as sql #@UnresolvedImport,@UnusedImport # type:ignore[remortMissingImports]
 except: from sqlite3   import dbapi2 as sql #@Reimport
-import dropbox
+import dropbox, dropbox.files
+from typing import Callable, Optional
 
 # see Python 3.12 documentation for recipes to replace deprecated default adapters and converterrs
 # these are compatible with Python <= 3.11
@@ -32,6 +33,16 @@ class LocalMetadata(object):
   DEFAULT_ATTR = []
   SET_ATTR     = []
 
+  # "dynamic" attribute
+  name:     str
+  id:       Optional[str]
+  size:     int
+  rev:      str
+  path_display:    str
+  client_modified: datetime.datetime
+  server_modified: datetime.datetime
+  children: Callable
+
   def __init__(self, db, dbxmeta=None, parent=None, **kwargs):
     self.db = db
     self.parent = parent
@@ -47,7 +58,7 @@ class LocalMetadata(object):
     for attr, val in self.SET_ATTR:
       if not hasattr(self, attr): setattr(self, attr, val)
 
-  def save(self, ts=datetime.datetime.utcnow()):
+  def save(self, ts: Optional[datetime.datetime]=datetime.datetime.now(datetime.timezone.utc)):
     if ts is not None:     self.syncts = ts
     if self.modts is None: self.modts  = self.syncts
 
@@ -77,7 +88,7 @@ class LocalMetadata(object):
       for c in self.children(): c.remove(children=True)
 
   @classproperty
-  def type(cls): return cls.__name__ #@NoSelf
+  def type(cls): return cls.__name__ #@NoSelf # type: ignore[attributeAccessIssue] # I don't know, why they're all complaining...
 
   @property
   def key(self): return self.path_lower
@@ -133,7 +144,7 @@ class DbxMetaDB(object):
     "LocalDeletedMeta":            LocalDeletedMeta,
   }
 
-  class Row(sql.Row):
+  class Row(sql.Row): # type: ignore[argument to class must be a base class] # sql.Row should be a base class already?
     # see https://github.com/python/cpython/issues/100450 et al.
     def values(self):
       return tuple(self[k] for k in self.keys()) # assume that the keys are properly ordered (by column no.)
@@ -147,7 +158,7 @@ class DbxMetaDB(object):
   def __init__(self, path, dbname=".~dbxmeta.py.db3", login=None, reset=False):
     self.path     = path
     self.dbname   = dbname 
-    self.db       = None
+    self.db: sql.Connection
     self._token   = False
     self._refresh = False
 
@@ -156,7 +167,7 @@ class DbxMetaDB(object):
   def __del__(self):
     self.close()
 
-  def create_meta(self, dbxmeta=None, parent=None, type=LocalFileMeta, *args, **kwargs):  # @ReservedAssignment
+  def create_meta(self, dbxmeta=None, parent=None, type: type[LocalMetadata]=LocalFileMeta, *args, **kwargs):  # @ReservedAssignment
     type        = self.DBX_META_MAP[type] if isinstance(type, str) else type  # @ReservedAssignment
     MetaFactory = self.DBX_META_MAP[dbxmeta.__class__] if dbxmeta is not None else type
 
@@ -185,7 +196,7 @@ class DbxMetaDB(object):
 
   @property
   def refresh_token(self):
-    if self._refresh is False: self.token()
+    if self._refresh is False: self.token
     return self._refresh
 
   def find(self, cond=None, param=None):

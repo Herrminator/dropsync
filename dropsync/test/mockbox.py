@@ -5,6 +5,7 @@ from dropbox.files import FolderMetadata, FileMetadata, DeletedMetadata, ListFol
 from ..dropbox_content_hasher import DropboxContentHasher
 from ..dbxmirror import isfile, isfolder, isdeleted
 from ..dbxmeta import LocalFolderMeta, LocalFileMeta, LocalDeletedMeta
+from typing import Optional
 
 def chash(data):
     hasher = DropboxContentHasher()
@@ -12,10 +13,10 @@ def chash(data):
     return hasher.hexdigest()
 
 class Mockbox(NonCallableMagicMock):
-    def __init__(self, testcase : unittest.TestCase, test_data : dict = None, max_return=None, target=None, **kwargs):
+    def __init__(self, testcase : unittest.TestCase, test_data : Optional[dict] = None, max_return=None, target=None, **kwargs):
         super().__init__(**kwargs)
         self.testcase = testcase
-        self.test_data = None
+        self.test_data = {}
         self.files_list_folder.side_effect = self._files_list_folder
         self.files_download_to_file.side_effect = self._files_download_to_file
         self.files_list_folder_continue.side_effect = self._files_list_folder_continue

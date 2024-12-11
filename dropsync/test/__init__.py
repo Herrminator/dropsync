@@ -68,4 +68,4 @@ class Run(unittest.TestProgram): # pragma: nocover
     
     def __init__(self, *args, **kwargs):
         kwargs.pop("module", None)
-        super().__init__(module=self, *args, **kwargs)
+        super().__init__(module=self, *args, **kwargs) # type: ignore[reportArgumentType] # as long as it works---

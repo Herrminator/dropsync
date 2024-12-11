@@ -1,4 +1,5 @@
 # From https://github.com/dropbox/dropbox-api-content-hasher/blob/master/python/dropbox_content_hasher.py
+# type: ignore[reportOptionalMemberAccess]
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 import hashlib

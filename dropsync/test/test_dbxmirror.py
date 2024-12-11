@@ -1,7 +1,7 @@
 import unittest, shutil, json, io
 from contextlib import redirect_stdout
 from datetime import datetime
-import dropbox
+import dropbox, dropbox.oauth
 from .. import dbxmirror
 from .  import data, TestBase, TEST_ARGS, TEST_TARGET, patch, MagicMock
 
