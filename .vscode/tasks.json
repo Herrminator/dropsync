@@ -46,7 +46,7 @@
 		{
             "type": "shell",
             "label": "coverage: report",
-            "command": "python",
+			"command": "${workspaceFolder}/bin/python",
             "windows": { "command": "${workspaceFolder}/Scripts/python"},
             "args": [ "-m", "coverage", "report", "--sort=-cover" ],
             "dependsOn": [ "coverage: run" ],
