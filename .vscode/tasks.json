@@ -12,9 +12,9 @@
         {
             "type": "shell",
             "label": "coverage: run",
-            "command": "${workspaceFolder}/bin/python",
+            "command": "${workspaceFolder}/.venv/bin/python",
             "windows": {
-                "command": "${workspaceFolder}/Scripts/python",
+                "command": "${workspaceFolder}/.venv/Scripts/python",
             },
             "args": [ "-m", "coverage", "run", "--branch",  "-m", "unittest",
                       "discover", "-b", "-v", "-s", ".", "-t", "." ],
@@ -28,8 +28,8 @@
         {
             "type": "shell",
             "label": "coverage: coverage.xml",
-            "command": "${workspaceFolder}/bin/python",
-            "windows": { "command": "${workspaceFolder}/Scripts/python"},
+            "command": "${workspaceFolder}/.venv/bin/python",
+            "windows": { "command": "${workspaceFolder}/.venv/Scripts/python"},
             "args": [ "-m", "coverage", "xml", ],
             "dependsOn": [ "generate coverage db" ],
             "icon": { "id": "debug-coverage", "color": "terminal.ansiYellow"},
@@ -41,8 +41,8 @@
         {
             "type": "shell",
             "label": "coverage: coverage.html",
-            "command": "${workspaceFolder}/bin/python",
-            "windows": { "command": "${workspaceFolder}/Scripts/python" },
+            "command": "${workspaceFolder}/.venv/bin/python",
+            "windows": { "command": "${workspaceFolder}/.venv/Scripts/python" },
             "args": [ "-m", "coverage", "html" ],
             "icon": { "id": "debug-coverage", "color": "terminal.ansiYellow" },
             "problemMatcher": [],
@@ -51,8 +51,8 @@
         {
             "type": "shell",
             "label": "coverage: report",
-            "command": "${workspaceFolder}/bin/python",
-            "windows": { "command": "${workspaceFolder}/Scripts/python"},
+            "command": "${workspaceFolder}/.venv/bin/python",
+            "windows": { "command": "${workspaceFolder}/.venv/Scripts/python"},
             "args": [ "-m", "coverage", "report", "--sort=-cover" ],
             "dependsOn": [ "coverage: run" ],
             "icon": { "id": "debug-coverage", "color": "terminal.ansiYellow"},
