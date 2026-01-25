@@ -1,6 +1,6 @@
 import os, datetime, pathlib, urllib.parse
-try:    from pysqlite2 import dbapi2 as sql #@UnresolvedImport,@UnusedImport # type:ignore[remortMissingImports]
-except: from sqlite3   import dbapi2 as sql #@Reimport
+try:    from pysqlite2 import dbapi2 as sql # type: ignore[reportMissingImports] #@UnresolvedImport,@UnusedImport
+except ImportError: from sqlite3   import dbapi2 as sql #@Reimport
 import dropbox, dropbox.files
 from typing import Callable, Optional
 
@@ -168,7 +168,7 @@ class DbxMetaDB(object):
     self.close()
 
   def create_meta(self, dbxmeta=None, parent=None, type: type[LocalMetadata]=LocalFileMeta, *args, **kwargs):  # @ReservedAssignment
-    type        = self.DBX_META_MAP[type] if isinstance(type, str) else type  # @ReservedAssignment
+    type        = self.DBX_META_MAP[type] if isinstance(type, str) else type # type:ignore # @ReservedAssignment # NOSONAR(S5806) 
     MetaFactory = self.DBX_META_MAP[dbxmeta.__class__] if dbxmeta is not None else type
 
     meta = MetaFactory(self, dbxmeta=dbxmeta, parent=parent, *args, **kwargs)
