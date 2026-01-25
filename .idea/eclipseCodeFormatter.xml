@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="EclipseCodeFormatterProjectSettings">
+    <option name="selectedGlobalProfile">
+      <Settings>
+        <option name="eclipseVersion" value="CUSTOM" />
+        <option name="formatter" value="ECLIPSE" />
+        <option name="id" value="1647475901647" />
+        <option name="importOrder" value="" />
+        <option name="name" value="Eclipse" />
+        <option name="optimizeImports" value="false" />
+        <option name="pathToConfigFileJava" value="$INTELLIJ_IDEA$/Formatter Settings/org.eclipse.jdt.core.prefs" />
+        <option name="selectedJavaProfile" value="valid 'org.eclipse.jdt.core.prefs' config" />
+      </Settings>
+    </option>
+  </component>
+</project>
