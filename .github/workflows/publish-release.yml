@@ -40,7 +40,7 @@ jobs:
       - name: Create Release
         # don't forget to set the permissions for action here:
         # https://github.com/<owner>/<repo>/settings/actions
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           draft: false
           prerelease: ${{ steps.version.outputs.prerelease }}
