@@ -7,3 +7,4 @@
 /copilot*
 # Manually excluded
 /externalDependencies.xml
+/eclipseCodeFormatter.xml

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "enabledManagers": [ "github-actions" ],
+  "packageRules": [
+    {
+      "matchManagers": [ "github-actions" ],
+      "matchPackageNames": [ "*" ],
+      "groupName": "GitHub Actions",
+      "groupSlug": "actions"
+    }
+  ],
+  "timezone": "Europe/Berlin"
+}
