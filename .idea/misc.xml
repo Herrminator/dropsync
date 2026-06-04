@@ -64,4 +64,7 @@
   <component name="ProjectRootManager" version="2" default="true" project-jdk-name="Python 3.13 (dropsync_ng)" project-jdk-type="Python SDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
+  <component name="PythonCompatibilityInspectionAdvertiser">
+    <option name="version" value="3" />
+  </component>
 </project>

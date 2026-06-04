@@ -284,7 +284,7 @@ def utcnow():
 
 def print_version():
     from .        import __version__
-    from requests import __version__ as rq_version
+    import requests.__version__ as rq_version
     print(f"{sys.argv[0]} - dropsync {__version__}, using dropbox API {dropbox.__version__} with requests {rq_version}, Python {sys.version}")
 
 def main(argv=sys.argv[1:]):

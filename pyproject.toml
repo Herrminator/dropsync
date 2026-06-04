@@ -7,7 +7,8 @@ name = "dropsync" # hatchling uses this to discover the top level dir
 description = "A simple Dropbox CLI-client written in Python, using the official Dropbox-API"
 dynamic = ["version"]
 dependencies = [
-    "dropbox"
+    "dropbox",
+    "requests[socks]"
 ]
 requires-python=">=3.8"
 readme="README.md"
