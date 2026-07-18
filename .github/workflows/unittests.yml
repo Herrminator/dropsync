@@ -43,6 +43,6 @@ jobs:
       - name: Display Python version
         run: python -c "import sys; print(sys.version)"
       - name: Install dependencies
-        run: python -m pip install --user --break-system-packages --no-cache -r dropsync/requirements.txt
+        run: python -m pip install --user --break-system-packages --no-cache -e .
       - name: Run unit tests
         run: python -m unittest discover -b -v
