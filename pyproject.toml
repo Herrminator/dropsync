@@ -8,7 +8,9 @@ description = "A simple Dropbox CLI-client written in Python, using the official
 dynamic = ["version"]
 dependencies = [
     "dropbox",
-    "requests[socks]"
+    "requests[socks]",
+    # for dropbox_content_hasher.py
+    "six",
 ]
 requires-python=">=3.8"
 readme="README.md"
