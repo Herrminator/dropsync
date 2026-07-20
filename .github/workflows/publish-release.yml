@@ -27,7 +27,7 @@ jobs:
           fi
 
       - name: Set up Python ${{ vars.DROPSYNC_PYTHON_VERSION }}
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: ${{ vars.DROPSYNC_PYTHON_VERSION }}
 
